@@ -43,6 +43,7 @@ public class Daemon {
 				for (File f : newFiles) {
 					// Assign folder to the output of categorizeFile for this file
 					File folder = DaemonUtils.categorizeFile(f.getName(), patterns);
+					System.out.println("File "+f.getName()+" goes in to "+(folder == null ? "nowhere" : folder.getPath()));
 					// If the folder is not null
 					if (folder != null) {
 						File newFile = new File(folder, f.getName());
@@ -59,7 +60,7 @@ public class Daemon {
 								if (files == null)
 									files = new ArrayList<File>();
 								files.add(newFile);
-								indexes.put(key, newFiles);
+								indexes.put(key, files);
 							}
 						} catch (IOException e) {
 							e.printStackTrace();

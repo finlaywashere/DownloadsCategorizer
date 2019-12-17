@@ -1,10 +1,15 @@
 package downloadsCategorizer.daemon;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.imageio.ImageIO;
+
 import downloadsCategorizer.common.ConfigurationManager;
+import downloadsCategorizer.common.Utils;
 
 public class DaemonUtils {
 	private static File[] lastFiles = new File[0];
@@ -47,13 +52,35 @@ public class DaemonUtils {
 		// Iterate over the patterns
 		for (String s : patterns) {
 			// Assign pattern to the first element of the current pattern split by spaces
-			String pattern = s.split(" ")[0];
+			String pattern = Utils.createRegexFromGlob(s.split(" ")[0]);
 			// Check if the filename matches pattern
-			if (s.matches(pattern))
+			if (filename.matches(pattern))
 				// Return the second element of the current pattern split by spaces
-				return new File(s.split(" ")[1]);
+				return new File(ConfigurationManager.DOWNLOADS_FOLDER, s.split(" ")[1]);
 		}
 		// Return null because no pattern was found
 		return null;
+	}
+
+	/**
+	 * HAHAHA I'm soo funny and original 
+	 * @param patterns
+	 */
+	public static void easterEgg(List<String> patterns) {
+		for (String s : patterns) {
+			String pattern = s.split(" ")[0].toLowerCase();
+			String folder = s.split(" ")[1].toLowerCase();
+			if (pattern.contains("jpg") || pattern.contains("png") || pattern.contains("gif")
+					|| folder.contains("images")) {
+				// Do the easter egg
+				try {
+					URL url = new URL("https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Danny_DeVito_by_Gage_Skidmore.jpg/1200px-Danny_DeVito_by_Gage_Skidmore.jpg");
+					BufferedImage image = ImageIO.read(url);
+					ImageIO.write(image, "jpg", new File(new File(ConfigurationManager.DOWNLOADS_FOLDER,folder),"easter_egg.jpg"));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 }
