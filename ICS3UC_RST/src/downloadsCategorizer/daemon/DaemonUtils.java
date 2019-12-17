@@ -69,9 +69,9 @@ public class DaemonUtils {
 	public static void easterEgg(List<String> patterns) {
 		for (String s : patterns) {
 			String pattern = s.split(" ")[0].toLowerCase();
-			String folder = s.split(" ")[1].toLowerCase();
+			String folder = s.split(" ")[1];
 			if (pattern.contains("jpg") || pattern.contains("png") || pattern.contains("gif")
-					|| folder.contains("images")) {
+					|| folder.toLowerCase().contains("images")) {
 				// Do the easter egg
 				try {
 					URL url = new URL("https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Danny_DeVito_by_Gage_Skidmore.jpg/1200px-Danny_DeVito_by_Gage_Skidmore.jpg");
