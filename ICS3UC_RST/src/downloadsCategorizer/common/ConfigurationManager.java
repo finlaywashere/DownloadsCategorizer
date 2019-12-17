@@ -1,6 +1,8 @@
 package downloadsCategorizer.common;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -66,6 +68,28 @@ public class ConfigurationManager {
 		}
 		in.close();
 		return returnValue;
-
+	}
+	public static void saveIndexes(Map<String,List<File>> indexes) throws Exception{
+		// Delete and recreate the file so it is blank
+		INDEX_FILE.delete();
+		INDEX_FILE.createNewFile();
+		// Create a print writer to write to the index file that is set to append to the file
+		PrintWriter out = new PrintWriter(new FileWriter(INDEX_FILE,true));
+		
+		// Iterate over all of the patterns in the indexes set
+		for(String s : indexes.keySet()) {
+			// Write the name of the pattern out to the file
+			out.println(s);
+			// Iterate through all the files for this pattern
+			for(File f : indexes.get(s)) {
+				// Print all the file paths for the files in this pattern to the file
+				out.println(" "+f.getPath());
+			}
+			// Print out END so that the program will know where the end of this pattern is
+			out.println("END");
+		}
+		
+		// Close the writer so the changes are saved
+		out.close();
 	}
 }
