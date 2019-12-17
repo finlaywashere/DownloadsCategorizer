@@ -20,6 +20,7 @@ public class Daemon {
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.println("Failed to load configuration!");
+			System.err.println("Make sure that you have your .dcconfig in your Downloads folder!");
 			System.exit(1);
 		}
 		if(args.length == 0)
@@ -48,6 +49,8 @@ public class Daemon {
 					System.out.println("File "+f.getName()+" goes in to "+(folder == null ? "nowhere" : folder.getPath()));
 					// If the folder is not null
 					if (folder != null) {
+						if(!folder.exists())
+							folder.mkdirs();
 						File newFile = new File(folder, f.getName());
 						System.out.println("Moving file "+f.getName()+" to "+folder.getPath()+"!");
 						// Move this file to folder

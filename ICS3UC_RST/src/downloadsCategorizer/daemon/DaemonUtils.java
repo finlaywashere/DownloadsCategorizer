@@ -63,20 +63,23 @@ public class DaemonUtils {
 	}
 
 	/**
-	 * HAHAHA I'm soo funny and original 
+	 * HAHAHA I'm soo funny and original
+	 * 
 	 * @param patterns
 	 */
 	public static void easterEgg(List<String> patterns) {
 		for (String s : patterns) {
 			String pattern = s.split(" ")[0].toLowerCase();
 			String folder = s.split(" ")[1];
-			if (pattern.contains("jpg") || pattern.contains("png") || pattern.contains("gif")
+			if (pattern.contains("jpg") || pattern.contains("png") || pattern.contains("gif") || pattern.contains("svg")
 					|| folder.toLowerCase().contains("images")) {
 				// Do the easter egg
 				try {
-					URL url = new URL("https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Danny_DeVito_by_Gage_Skidmore.jpg/1200px-Danny_DeVito_by_Gage_Skidmore.jpg");
+					URL url = new URL(
+							"https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Danny_DeVito_by_Gage_Skidmore.jpg/1200px-Danny_DeVito_by_Gage_Skidmore.jpg");
 					BufferedImage image = ImageIO.read(url);
-					ImageIO.write(image, "jpg", new File(new File(ConfigurationManager.DOWNLOADS_FOLDER,folder),"easter_egg.jpg"));
+					ImageIO.write(image, "jpg",
+							new File(new File(ConfigurationManager.DOWNLOADS_FOLDER, folder), "easter_egg.jpg"));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
