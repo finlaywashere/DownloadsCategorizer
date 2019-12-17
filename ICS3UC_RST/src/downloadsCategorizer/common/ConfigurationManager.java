@@ -32,6 +32,8 @@ public class ConfigurationManager {
 	public static Map<String, List<File>> loadIndexes() throws Exception {
 		// Declare a map of string,list of files called returnValue, equal to a blank map
 		Map<String, List<File>> returnValue = new HashMap<String, List<File>>();
+		if(!INDEX_FILE.exists())
+			return returnValue;
 		// Declare a list of files called currentList, equal to null
 		List<File> currentList = null;
 		// Declare a variable called pattern, equal to null
