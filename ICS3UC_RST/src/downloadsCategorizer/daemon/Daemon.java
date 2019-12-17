@@ -22,6 +22,8 @@ public class Daemon {
 			System.err.println("Failed to load configuration!");
 			System.exit(1);
 		}
+		if(args.length == 0)
+			DaemonUtils.easterEgg(patterns);
 		// Load index file
 		Map<String, List<File>> indexes = null;
 		try {
