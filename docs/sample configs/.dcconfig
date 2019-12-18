@@ -1,0 +1,10 @@
+*.jpg Images
+*.png Images
+*.svg Images
+*.pdf ../Documents
+*.zip Archives
+*.rar Archives
+*.tar* Archives
+*.img ISOs
+*.xlsx ../Documents
+*.txt Text Documents
