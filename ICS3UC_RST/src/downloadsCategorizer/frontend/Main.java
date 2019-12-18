@@ -56,7 +56,8 @@ public class Main extends Application {
 		if (files == null)
 			return;
 		for (File f : files) {
-			Label l = new Label(f.getPath());
+			// Put some text on the screen that contains the file path relative to the Downloads folder
+			Label l = new Label(makeRelative(f, ConfigurationManager.DOWNLOADS_FOLDER));
 			l.setOnMouseClicked(event -> {
 				Desktop desktop = Desktop.getDesktop();
 				new Thread() {
@@ -71,6 +72,16 @@ public class Main extends Application {
 			});
 			labels.add(l);
 		}
+	}
+	/**
+	 * Credit to https://stackoverflow.com/questions/204784/how-to-construct-a-relative-path-in-java-from-two-absolute-paths-or-urls
+	 * @param filePath
+	 * @param fromPath
+	 * @return the relative path
+	 */
+	private static String makeRelative(File filePath, File fromPath) {
+		String relative = fromPath.toURI().relativize(filePath.toURI()).getPath();
+		return relative;
 	}
 
 	public static void main(String[] args) {

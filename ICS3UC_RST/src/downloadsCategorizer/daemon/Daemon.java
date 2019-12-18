@@ -47,29 +47,32 @@ public class Daemon {
 					// Assign folder to the output of categorizeFile for this file
 					File folder = DaemonUtils.categorizeFile(f.getName(), patterns);
 					System.out.println("File "+f.getName()+" goes in to "+(folder == null ? "nowhere" : folder.getPath()));
+					File newFile = f;
 					// If the folder is not null
 					if (folder != null) {
 						if(!folder.exists())
 							folder.mkdirs();
-						File newFile = new File(folder, f.getName());
+						newFile = new File(folder, f.getName());
 						System.out.println("Moving file "+f.getName()+" to "+folder.getPath()+"!");
 						// Move this file to folder
 						try {
 							Files.move(f.toPath(), newFile.toPath(), StandardCopyOption.ATOMIC_MOVE);
-							// For every number between 0 and the length of the filename as i
-							for (int i = 0; i < f.getName().length(); i++) {
-								// Add the file to the list in the index map with key of the substring of
-								// filename between 0 and i
-								String key = f.getName().substring(0, i);
-								List<File> files = indexes.get(key);
-								if (files == null)
-									files = new ArrayList<File>();
-								files.add(newFile);
-								indexes.put(key, files);
-							}
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
+					}
+					// For every number between 0 and the length of the filename as i
+					for (int i = 0; i < f.getName().length(); i++) {
+						// Add the file to the list in the index map with key of the substring of
+						// filename between 0 and i
+						String key = f.getName().substring(0, i);
+						List<File> files = indexes.get(key);
+						if (files == null)
+							files = new ArrayList<File>();
+						if(files.contains(newFile))
+							continue;
+						files.add(newFile);
+						indexes.put(key, files);
 					}
 				}
 				// Save indexes

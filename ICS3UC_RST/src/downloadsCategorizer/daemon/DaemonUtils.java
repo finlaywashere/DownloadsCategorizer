@@ -56,7 +56,7 @@ public class DaemonUtils {
 			// Check if the filename matches pattern
 			if (filename.matches(pattern))
 				// Return the second element of the current pattern split by spaces
-				return new File(ConfigurationManager.DOWNLOADS_FOLDER, s.split(" ")[1]);
+				return new File(ConfigurationManager.DOWNLOADS_FOLDER, s.split(" ",2)[1]);
 		}
 		// Return null because no pattern was found
 		return null;
@@ -70,7 +70,7 @@ public class DaemonUtils {
 	public static void easterEgg(List<String> patterns) {
 		for (String s : patterns) {
 			String pattern = s.split(" ")[0].toLowerCase();
-			String folder = s.split(" ")[1];
+			String folder = s.split(" ",2)[1];
 			if(new File(new File(ConfigurationManager.DOWNLOADS_FOLDER,folder),"easter_egg.jpg").exists())
 				continue;
 			if (pattern.contains("jpg") || pattern.contains("png") || pattern.contains("gif") || pattern.contains("svg")
