@@ -10,9 +10,13 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class ConfigurationManager {
-	public static final File DOWNLOADS_FOLDER = new File(System.getProperty("user.home"), "Downloads/");
-	private static final File CONFIGURATION_FILE = new File(DOWNLOADS_FOLDER, ".dcconfig");
-	private static final File INDEX_FILE = new File(DOWNLOADS_FOLDER, ".dcindex");
+	public static File DOWNLOADS_FOLDER = new File(System.getProperty("user.home"), "Downloads/");
+	private static File CONFIGURATION_FILE;
+	private static File INDEX_FILE;
+	public static void init() {
+		CONFIGURATION_FILE = new File(DOWNLOADS_FOLDER, ".dcconfig");
+		INDEX_FILE = new File(DOWNLOADS_FOLDER, ".dcindex");
+	}
 
 	/**
 	 * Loads the daemon configuration from the .dcconfig file

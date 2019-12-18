@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import downloadsCategorizer.common.ConfigurationManager;
+import simpleIO.Console;
 
 public class Daemon {
 
@@ -18,6 +19,8 @@ public class Daemon {
 	 * @param args the program arguments
 	 */
 	public static void main(String[] args) {
+		// Initialize the configuration manager
+		ConfigurationManager.init();
 		// Load the configuration
 		List<String> patterns = null;
 		try {
@@ -25,8 +28,8 @@ public class Daemon {
 		} catch (Exception e) {
 			// Throw a fit
 			e.printStackTrace();
-			System.err.println("Failed to load configuration!");
-			System.err.println("Make sure that you have your .dcconfig in your Downloads folder!");
+			Console.print("ERR: "+"Failed to load configuration!");
+			Console.print("ERR: "+"Make sure that you have your .dcconfig in your Downloads folder!");
 			System.exit(1);
 		}
 		// If there are no arguments passed, then do the easter egg (so that anyone actually using this can disable the blessed_image)
@@ -46,14 +49,14 @@ public class Daemon {
 			// If there are more than 0 new files
 			if (newFiles.size() > 0) {
 				// Log how many files have been found
-				System.out.println("Found " + newFiles.size() + " new files in "
+				Console.print("Found " + newFiles.size() + " new files in "
 						+ ConfigurationManager.DOWNLOADS_FOLDER.getPath() + "!");
 				// For each file in the new files list
 				for (File f : newFiles) {
 					// Assign folder to the output of categorizeFile for this file
 					File folder = DaemonUtils.categorizeFile(f.getName(), patterns);
 					// Log where the file has been categorized in to
-					System.out.println("File "+f.getName()+" goes in to "+(folder == null ? "nowhere" : folder.getPath()));
+					Console.print("File "+f.getName()+" goes in to "+(folder == null ? "nowhere" : folder.getPath()));
 					File newFile = f;
 					// If the folder is not null
 					if (folder != null) {
@@ -62,7 +65,7 @@ public class Daemon {
 							folder.mkdirs();
 						newFile = new File(folder, f.getName());
 						// Log that the file is being moved
-						System.out.println("Moving file "+f.getName()+" to "+folder.getPath()+"!");
+						Console.print("Moving file "+f.getName()+" to "+folder.getPath()+"!");
 						// Move this file to folder
 						try {
 							Files.move(f.toPath(), newFile.toPath(), StandardCopyOption.ATOMIC_MOVE);
@@ -89,7 +92,7 @@ public class Daemon {
 					ConfigurationManager.saveIndexes(indexes);
 				} catch (Exception e) {
 					e.printStackTrace();
-					System.err.println("Failed to save indexes!");
+					Console.print("ERR: "+"Failed to save indexes!");
 				}
 			}
 			// Sleep for 5 seconds

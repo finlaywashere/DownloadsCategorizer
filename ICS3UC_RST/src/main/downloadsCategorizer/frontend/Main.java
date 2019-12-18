@@ -30,6 +30,8 @@ public class Main extends Application {
 	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		// Initialize the configuration manager
+		ConfigurationManager.init();
 		this.indexes = ConfigurationManager.loadIndexes();
 		// Initialize the root pane of the window
 		GridPane root = new GridPane();
