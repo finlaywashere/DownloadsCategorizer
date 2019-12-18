@@ -11,8 +11,8 @@ import java.util.Scanner;
 
 public class ConfigurationManager {
 	public static File DOWNLOADS_FOLDER = new File(System.getProperty("user.home"), "Downloads/");
-	private static File CONFIGURATION_FILE;
-	private static File INDEX_FILE;
+	public static File CONFIGURATION_FILE;
+	public static File INDEX_FILE;
 	public static void init() {
 		CONFIGURATION_FILE = new File(DOWNLOADS_FOLDER, ".dcconfig");
 		INDEX_FILE = new File(DOWNLOADS_FOLDER, ".dcindex");
