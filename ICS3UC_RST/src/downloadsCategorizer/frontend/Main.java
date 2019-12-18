@@ -28,31 +28,40 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		this.indexes = ConfigurationManager.loadIndexes();
+		// Initialize the root pane of the window
 		GridPane root = new GridPane();
 		root.setAlignment(Pos.TOP_CENTER);
 		root.setHgap(10);
 		root.setVgap(10);
 		root.setPadding(new Insets(20, 20, 20, 20));
-
+		
+		// Create the label that tells the user what the input text field is for
 		Label label = new Label("Filename: ");
 		root.add(label, 0, 0);
+		// Create the text field for the user to enter a search term in to
 		TextField field = new TextField();
 		root.add(field, 1, 0);
+		// Create the button that the user uses to search for files
 		Button button = new Button("Search");
 		button.setOnMouseClicked(event -> {
 			search(field.getText());
 		});
 		root.add(button, 2, 0);
+		// Create the list view that is used to list files
 		ListView<Label> fileListView = new ListView<Label>(labels);
 		root.add(fileListView, 1, 3);
+		// Setup the rest of the window stuff
 		primaryStage.setScene(new Scene(root, 1920, 1080));
 		primaryStage.show();
 		button.requestFocus();
 	}
 
 	private void search(String filename) {
+		// Find all the files matching that filename
 		List<File> files = indexes.get(filename);
+		// Clear the current list of files
 		labels.clear();
+		// If there are no files, then the list is blank
 		if (files == null)
 			return;
 		for (File f : files) {
@@ -63,6 +72,7 @@ public class Main extends Application {
 				new Thread() {
 					public void run() {
 						try {
+							// The label has been double clicked, so the parent folder for the file that the user selected should be opened
 							desktop.open(f.getParentFile());
 						} catch (IOException e) {
 							e.printStackTrace();
@@ -70,6 +80,7 @@ public class Main extends Application {
 					}
 				}.start();
 			});
+			// Throw the label on to the screen
 			labels.add(l);
 		}
 	}
