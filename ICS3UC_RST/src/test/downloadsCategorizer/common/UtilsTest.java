@@ -7,8 +7,10 @@ import org.junit.Test;
 public class UtilsTest {
 
 	@Test
-	public void test() {
-		fail("Not yet implemented");
+	public void testGlobToRegex() {
+		String glob = "*.txt";
+		String regex = Utils.createRegexFromGlob(glob);
+		assertEquals("^.*\\.txt$", regex);
 	}
 
 }
