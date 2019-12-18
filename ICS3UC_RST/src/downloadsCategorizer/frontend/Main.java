@@ -22,9 +22,9 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-	private Map<String,List<File>> indexes;
+	private Map<String, List<File>> indexes;
 	private ObservableList<Label> labels = FXCollections.observableArrayList();
-	
+
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		this.indexes = ConfigurationManager.loadIndexes();
@@ -32,10 +32,10 @@ public class Main extends Application {
 		root.setAlignment(Pos.TOP_CENTER);
 		root.setHgap(10);
 		root.setVgap(10);
-		root.setPadding(new Insets(20,20,20,20));
-		
+		root.setPadding(new Insets(20, 20, 20, 20));
+
 		Label label = new Label("Filename: ");
-		root.add(label, 0,0);
+		root.add(label, 0, 0);
 		TextField field = new TextField();
 		root.add(field, 1, 0);
 		Button button = new Button("Search");
@@ -45,23 +45,29 @@ public class Main extends Application {
 		root.add(button, 2, 0);
 		ListView<Label> fileListView = new ListView<Label>(labels);
 		root.add(fileListView, 1, 3);
-		primaryStage.setScene(new Scene(root,1920,1080));
+		primaryStage.setScene(new Scene(root, 1920, 1080));
 		primaryStage.show();
 		button.requestFocus();
 	}
+
 	private void search(String filename) {
 		List<File> files = indexes.get(filename);
 		labels.clear();
-		if(files == null) return;
-		for(File f : files) {
+		if (files == null)
+			return;
+		for (File f : files) {
 			Label l = new Label(f.getPath());
 			l.setOnMouseClicked(event -> {
 				Desktop desktop = Desktop.getDesktop();
-				try {
-					desktop.open(f.getParentFile());
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				new Thread() {
+					public void run() {
+						try {
+							desktop.open(f.getParentFile());
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+				}.start();
 			});
 			labels.add(l);
 		}
