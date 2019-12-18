@@ -25,6 +25,9 @@ public class Main extends Application {
 	private Map<String, List<File>> indexes;
 	private ObservableList<Label> labels = FXCollections.observableArrayList();
 
+	/**
+	 * Initializes all the UI stuff
+	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		this.indexes = ConfigurationManager.loadIndexes();
@@ -56,6 +59,11 @@ public class Main extends Application {
 		button.requestFocus();
 	}
 
+	/**
+	 * Search through the indexes and display all of the files that match a certain filename
+	 * Also does some magic with making the filenames clickable
+	 * @param filename
+	 */
 	private void search(String filename) {
 		// Find all the files matching that filename
 		List<File> files = indexes.get(filename);
@@ -86,8 +94,9 @@ public class Main extends Application {
 	}
 	/**
 	 * Credit to https://stackoverflow.com/questions/204784/how-to-construct-a-relative-path-in-java-from-two-absolute-paths-or-urls
-	 * @param filePath
-	 * @param fromPath
+	 * Makes an absolute path relative
+	 * @param filePath the absolute path
+	 * @param fromPath the folder to make it relative to
 	 * @return the relative path
 	 */
 	private static String makeRelative(File filePath, File fromPath) {
@@ -95,6 +104,10 @@ public class Main extends Application {
 		return relative;
 	}
 
+	/**
+	 * Starts the UI program
+	 * @param args the program arguments
+	 */
 	public static void main(String[] args) {
 		launch(args);
 	}

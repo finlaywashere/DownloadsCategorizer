@@ -14,6 +14,11 @@ import downloadsCategorizer.common.Utils;
 public class DaemonUtils {
 	private static File[] lastFiles = new File[0];
 
+	/**
+	 * Finds all the new files in the downloads folder
+	 * Note: The first time this is run every time the program is restarted it will return all the files in the Downloads folder
+	 * @return the files that are now in the Downloads folder that were not there before
+	 */
 	public static List<File> findNewFiles() {
 		File DIRECTORY = ConfigurationManager.DOWNLOADS_FOLDER;
 		// Declare a list of Files called newFiles
@@ -41,6 +46,7 @@ public class DaemonUtils {
 	 * @return whether or not the file is in the array
 	 */
 	private static boolean contains(File f, File[] files) {
+		// Go through all the files in the array and check if any of them equal the given file
 		for (File f1 : files) {
 			if (f1.equals(f))
 				return true;
@@ -48,6 +54,12 @@ public class DaemonUtils {
 		return false;
 	}
 
+	/**
+	 * Figures out where a file should go from its filename
+	 * @param filename the files name
+	 * @param patterns the list of patterns loaded from the daemon configuration
+	 * @return the folder where the file should be moved to
+	 */
 	public static File categorizeFile(String filename, List<String> patterns) {
 		// Iterate over the patterns
 		for (String s : patterns) {
@@ -65,21 +77,27 @@ public class DaemonUtils {
 	/**
 	 * HAHAHA I'm soo funny and original
 	 * 
-	 * @param patterns
+	 * @param patterns the patterns loaded from the daemon configuration
 	 */
 	public static void easterEgg(List<String> patterns) {
+		// Go through all the patterns in the configuration
 		for (String s : patterns) {
+			// Extract the pattern and folder from the pattern string
 			String pattern = s.split(" ")[0].toLowerCase();
 			String folder = s.split(" ",2)[1];
+			// Make sure that this has not been run on this folder before to save space
 			if(new File(new File(ConfigurationManager.DOWNLOADS_FOLDER,folder),"easter_egg.jpg").exists())
 				continue;
+			// If the pattern is for images
 			if (pattern.contains("jpg") || pattern.contains("png") || pattern.contains("gif") || pattern.contains("svg")
 					|| folder.toLowerCase().contains("images")) {
 				// Do the easter egg
 				try {
+					// Download the blessed_image
 					URL url = new URL(
 							"https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Danny_DeVito_by_Gage_Skidmore.jpg/1200px-Danny_DeVito_by_Gage_Skidmore.jpg");
 					BufferedImage image = ImageIO.read(url);
+					// Write it to the folder as easter_egg.jpg
 					ImageIO.write(image, "jpg",
 							new File(new File(ConfigurationManager.DOWNLOADS_FOLDER, folder), "easter_egg.jpg"));
 				} catch (Exception e) {

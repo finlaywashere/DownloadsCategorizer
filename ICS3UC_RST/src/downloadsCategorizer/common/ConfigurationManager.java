@@ -14,6 +14,11 @@ public class ConfigurationManager {
 	private static final File CONFIGURATION_FILE = new File(DOWNLOADS_FOLDER, ".dcconfig");
 	private static final File INDEX_FILE = new File(DOWNLOADS_FOLDER, ".dcindex");
 
+	/**
+	 * Loads the daemon configuration from the .dcconfig file
+	 * @return the daemon configuration
+	 * @throws Exception
+	 */
 	public static List<String> loadConfiguration() throws Exception {
 		List<String> patterns = new ArrayList<String>();
 		Scanner in = new Scanner(CONFIGURATION_FILE);
@@ -28,7 +33,11 @@ public class ConfigurationManager {
 		in.close();
 		return patterns;
 	}
-
+	/**
+	 * Loads the indexes from the .dcindex file
+	 * @return the indexes
+	 * @throws Exception
+	 */
 	public static Map<String, List<File>> loadIndexes() throws Exception {
 		// Declare a map of string,list of files called returnValue, equal to a blank map
 		Map<String, List<File>> returnValue = new HashMap<String, List<File>>();
@@ -71,6 +80,11 @@ public class ConfigurationManager {
 		in.close();
 		return returnValue;
 	}
+	/**
+	 * Saves the indexes to the .dcindex file
+	 * @param indexes map
+	 * @throws Exception
+	 */
 	public static void saveIndexes(Map<String,List<File>> indexes) throws Exception{
 		// Delete and recreate the file so it is blank
 		INDEX_FILE.delete();
