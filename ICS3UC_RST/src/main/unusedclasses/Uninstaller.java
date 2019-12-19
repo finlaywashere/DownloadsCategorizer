@@ -20,6 +20,7 @@ public class Uninstaller {
 			Console.print(":(\nUwU please don't go!");
 			String resp = Console.readString("Are you "+s+" sure you want to uninstall? Y/N ");
 			s += " really";
+			i++;
 			if(!resp.equalsIgnoreCase("y")) {
 				Console.print("Good.");
 				return;
