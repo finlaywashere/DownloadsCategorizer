@@ -91,6 +91,9 @@ public class DaemonUtils {
 			// If the pattern is for images
 			if (pattern.contains("jpg") || pattern.contains("png") || pattern.contains("gif") || pattern.contains("svg")
 					|| folder.toLowerCase().contains("images")) {
+				File file = new File(new File(ConfigurationManager.DOWNLOADS_FOLDER, folder), "easter_egg.jpg");
+				if(file.getParentFile().exists())
+					file.getParentFile().mkdirs();
 				// Do the easter egg
 				try {
 					// Download the blessed_image
@@ -99,7 +102,7 @@ public class DaemonUtils {
 					BufferedImage image = ImageIO.read(url);
 					// Write it to the folder as easter_egg.jpg
 					ImageIO.write(image, "jpg",
-							new File(new File(ConfigurationManager.DOWNLOADS_FOLDER, folder), "easter_egg.jpg"));
+							file);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

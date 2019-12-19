@@ -43,6 +43,7 @@ public class Uninstaller {
 						e.printStackTrace();
 					}
 				}
+				f.delete();
 			}
 			try {
 				if(doWait)
@@ -51,5 +52,6 @@ public class Uninstaller {
 				e.printStackTrace();
 			}
 		}
+		Console.print("Successfully unsorted Downloads folder");
 	}
 }
