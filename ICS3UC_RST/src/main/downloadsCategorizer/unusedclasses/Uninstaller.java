@@ -27,6 +27,7 @@ public class Uninstaller {
 			}
 		}
 		File folder = ConfigurationManager.DOWNLOADS_FOLDER;
+		boolean doWait = args.length == 0;
 		for(File f : folder.listFiles()) {
 			if(f.isDirectory()) {
 				for(File f1 : f.listFiles()) {
@@ -36,14 +37,16 @@ public class Uninstaller {
 						e1.printStackTrace();
 					}
 					try {
-						Thread.sleep(5000);
+						if(doWait)
+							Thread.sleep(5000);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
 				}
 			}
 			try {
-				Thread.sleep(5000);
+				if(doWait)
+					Thread.sleep(5000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
