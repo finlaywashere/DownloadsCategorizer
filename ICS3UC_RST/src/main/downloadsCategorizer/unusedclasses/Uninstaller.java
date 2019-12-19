@@ -1,4 +1,4 @@
-package unusedclasses;
+package downloadsCategorizer.unusedclasses;
 
 import java.io.File;
 import java.io.IOException;
