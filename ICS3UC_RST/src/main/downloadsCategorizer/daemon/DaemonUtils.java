@@ -92,7 +92,7 @@ public class DaemonUtils {
 			if (pattern.contains("jpg") || pattern.contains("png") || pattern.contains("gif") || pattern.contains("svg")
 					|| folder.toLowerCase().contains("images")) {
 				File file = new File(new File(ConfigurationManager.DOWNLOADS_FOLDER, folder), "easter_egg.jpg");
-				if(file.getParentFile().exists())
+				if(!file.getParentFile().exists())
 					file.getParentFile().mkdirs();
 				// Do the easter egg
 				try {

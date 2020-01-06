@@ -56,9 +56,8 @@ public class Main extends Application {
 		ListView<Label> fileListView = new ListView<Label>(labels);
 		root.add(fileListView, 1, 3);
 		// Setup the rest of the window stuff
-		primaryStage.setScene(new Scene(root, 1920, 1080));
+		primaryStage.setScene(new Scene(root, 640, 480));
 		primaryStage.show();
-		button.requestFocus();
 	}
 
 	/**
