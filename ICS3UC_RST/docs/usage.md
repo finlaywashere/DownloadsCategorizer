@@ -29,3 +29,9 @@ The categorizer daemon runs in the background, and as such requires no user inte
 ### 2.2 File Searching Utility
 
 The categorizer comes with a built in indexed file searching utility for the Downloads folder, this can be used by running the utility jar or the Main class.
+
+### 2.3 Uninstaller usage
+
+In order to uninstall this amazing program run `Uninstaller.java`
+
+Note: If any arguments are passed to the uninstaller it will disable the delays

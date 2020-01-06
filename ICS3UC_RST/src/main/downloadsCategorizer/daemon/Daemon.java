@@ -27,9 +27,9 @@ public class Daemon {
 			patterns = ConfigurationManager.loadConfiguration();
 		} catch (Exception e) {
 			// Throw a fit
-			e.printStackTrace();
 			Console.print("ERR: "+"Failed to load configuration!");
 			Console.print("ERR: "+"Make sure that you have your .dcconfig in your Downloads folder!");
+			Console.print("ERR: Did you forget to read the documentation???");
 			System.exit(1);
 		}
 		// If there are no arguments passed, then do the easter egg (so that anyone actually using this can disable the blessed_image)

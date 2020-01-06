@@ -17,7 +17,7 @@ public class Uninstaller {
 		String s = "really";
 		Console.print("Note: Uninstalling will only undo the sorting, not remove the program");
 		while(i < 30) {
-			Console.print(":(\nUwU please don't go!");
+			Console.print(":(\nPlease don't go!");
 			String resp = Console.readString("Are you "+s+" sure you want to uninstall? Y/N ");
 			s += " really";
 			i++;
