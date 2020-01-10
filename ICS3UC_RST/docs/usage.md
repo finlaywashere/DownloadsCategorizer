@@ -8,6 +8,8 @@ The Downloads Categorizer requires 1 configuration file in the Downloads folder 
 
 This configuration file is in the format `(glob pattern) folder`
 
+Note: There is an example configuration provided in the `docs/sample configs/` folder or you can also use the `ConfigurationGenerator` class
+
 Note: There cannot be any spaces in the glob pattern, however there can be spaces in the folder path
 
 Also note: The folder path is relative to the Downloads folder
